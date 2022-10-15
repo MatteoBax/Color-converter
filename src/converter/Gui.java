@@ -5,18 +5,21 @@ import javax.swing.*;
 public class Gui implements ActionListener{ 
 	//Global variables
 	JTextField R,G,B,output; 
-	JLabel T1, T2, T3, T4;
+	JLabel T1, T2, T3, T4, languageSett;
     JButton Button;
-    String hex, result;
+    String hex, result, r, g, b;
+    int sR, sG, sB;
+    static Settings settings;
 	void createAndshowGUI(){
-		Settings settings = new Settings();
+		settings = new Settings();
 		settings.getSettings();
-		String lang = settings.lang;
 		String title = settings.title;
 		String btnText = settings.btnText;
 		String hexText = settings.hexText;
 		
 		JFrame f= new JFrame(title); 
+		this.languageSett = new JLabel(new ImageIcon(System.getProperty("user.dir") + "\\rsc\\translate.png"));
+		this.languageSett.setBounds(350, 30, 20, 20);
 	    Button = new JButton(btnText);
 	    Button.setBounds(135,200,120,30);
 	    Button.addActionListener(this);
@@ -64,25 +67,35 @@ public class Gui implements ActionListener{
 	    f.add(this.B);
 	    f.add(output);
 	    f.add(Button);
+	    f.add(this.languageSett);
 	    f.setSize(400,400); 
 	    f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    f.setLayout(null);  
 	    f.setVisible(true);
+	    
+	    
+	    
+	    languageSett.addMouseListener(new MouseAdapter() {
+	    	@Override
+            public void mouseClicked(MouseEvent e) {
+	    		SettingsGui sg = new SettingsGui();
+	    		sg.selectLanguage();
+            }
+	    });
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		//Convert to hex
 		try {
-			String r=R.getText();  
-	        String g=G.getText();
-	        String b = B.getText();
-	        int sR=Integer.parseInt(r);  
-	        int sG=Integer.parseInt(g); 
-	        int sB=Integer.parseInt(b);
+			this.r=R.getText();  
+	        this.g=G.getText();
+	        this.b = B.getText();
+	        this.sR=Integer.parseInt(r);  
+	        this.sG=Integer.parseInt(g); 
+	        this.sB=Integer.parseInt(b);
 	        if(e.getSource()==Button){  
-	            Convert.main(sR, sG, sB);
+	            Convert.main(this.sR, this.sG, this.sB);
 	            hex="#"+ Convert.red + Convert.green + Convert.blue;
 	        }
 	        String result=String.valueOf(hex);  

@@ -2,7 +2,6 @@ package converter;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.Properties;
 
 public class Settings {
@@ -11,7 +10,7 @@ public class Settings {
 	FileOutputStream out;
 	Properties p;
 	//ArrayList<String> settings = new ArrayList<String>();
-	String lang, title, btnText, hexText;
+	String lang, title, btnText, hexText, btnTextCnc, btnTextSv;
 	public void getSettings() {
 		try {
 			//Load settings.properties
@@ -22,6 +21,8 @@ public class Settings {
 			this.title = p.getProperty("title."+lang);
 			this.btnText = p.getProperty("btnText."+lang);
 			this.hexText = p.getProperty("hexText."+lang);
+			this.btnTextCnc = p.getProperty("btnTextCnc."+lang);
+			this.btnTextSv = p.getProperty("btnTextSv."+lang);
 			this.in.close();
 
 		}catch(Exception e) {
